@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Placement System - VIT Vellore</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>VIT Placement System
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="companies.html">
+                            <i class="fas fa-building me-1"></i> Companies
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="policy-link">
+                            <i class="fas fa-clipboard-list me-1"></i> Placement Policy
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">
+                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">
+                            <i class="fas fa-user-plus me-1"></i> Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero text-center">
+        <div class="container">
+            <h1 class="display-4">Welcome to VIT Vellore Placement System</h1>
+            <p class="lead">The College Placement System helps students of VIT Vellore find job opportunities and manage their placement process efficiently. This is a project developed by Devin Thakur - 23BIT0031 under the guidance of Prof. Vijayan R.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="register.html" class="btn btn-light btn-lg">
+                    <i class="fas fa-user-plus me-2"></i>Register Now
+                </a>
+                <a href="login.html" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container mt-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-graduate fa-3x mb-3 text-primary"></i>
+                        <h3 class="card-title">For Students</h3>
+                        <p class="card-text">Create your profile, apply for jobs, and track your application status. Get notified about new opportunities matching your skills.</p>
+                        <a href="register.html" class="btn btn-primary">
+                            <i class="fas fa-arrow-right me-1"></i> Get Started
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-building fa-3x mb-3 text-primary"></i>
+                        <h3 class="card-title">For Companies</h3>
+                        <p class="card-text">Post job opportunities and find talented students for your organization. Connect with the best minds from VIT Vellore.</p>
+                        <a href="mailto:admin@gmail.com" class="btn btn-primary">
+                            <i class="fas fa-envelope me-1"></i> Contact Admin
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-tie fa-3x mb-3 text-primary"></i>
+                        <h3 class="card-title">For Administrators</h3>
+                        <p class="card-text">Manage the placement process, generate reports, and track statistics. Ensure a smooth placement experience for everyone.</p>
+                        <a href="login.html" class="btn btn-primary">
+                            <i class="fas fa-lock me-1"></i> Admin Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-briefcase me-2"></i>Latest Opportunities
+                        </h5>
+                        <a href="companies.html" class="btn btn-sm btn-outline-light">View All</a>
+                    </div>
+                    <div class="card-body">
+                        <div id="latest-opportunities">
+                            <div class="loading-container">
+                                <div class="spinner-border text-primary spinner-lg" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p>Loading latest opportunities...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-calendar-alt me-2"></i>Upcoming Events
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">Pre-Placement Talk - Microsoft</h6>
+                                    <p class="mb-0 text-muted">Learn about opportunities at Microsoft</p>
+                                </div>
+                                <span class="badge bg-primary rounded-pill">Apr 15</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">Resume Building Workshop</h6>
+                                    <p class="mb-0 text-muted">Learn how to create an impressive resume</p>
+                                </div>
+                                <span class="badge bg-primary rounded-pill">Apr 20</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="mb-1">Mock Interview Session</h6>
+                                    <p class="mb-0 text-muted">Practice your interview skills</p>
+                                </div>
+                                <span class="badge bg-primary rounded-pill">Apr 25</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-trophy me-2"></i>Placement Highlights
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="flex-shrink-0">
+                                <div class="stat-card primary p-3 rounded">
+                                    <h2 class="mb-0">95%</h2>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-1">Placement Rate</h5>
+                                <p class="mb-0 text-muted">For the 2024-25 academic year</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="flex-shrink-0">
+                                <div class="stat-card secondary p-3 rounded">
+                                    <h2 class="mb-0">150+</h2>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-1">Companies Visited</h5>
+                                <p class="mb-0 text-muted">Including top MNCs and startups</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <div class="stat-card success p-3 rounded">
+                                    <h2 class="mb-0">₹25L</h2>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="mb-1">Highest Package</h5>
+                                <p class="mb-0 text-muted">Offered this academic year</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Policy Modal -->
+    <div class="modal fade" id="policyModal" tabindex="-1" aria-labelledby="policyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="policyModalLabel">
+                        <i class="fas fa-clipboard-list me-2"></i>Placement Policy
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <h6 class="fw-bold"><i class="fas fa-check-circle me-2 text-primary"></i>Eligibility Criteria</h6>
+                        <p>Students must maintain a minimum CGPA of 7.0 to be eligible for campus placements. Students with active backlogs are not eligible for the placement process.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6 class="fw-bold"><i class="fas fa-user-clock me-2 text-primary"></i>Attendance Requirements</h6>
+                        <p>Students must have at least 75% attendance in all placement-related activities. Absence from pre-placement talks or other mandatory sessions may result in disqualification from the placement process.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6 class="fw-bold"><i class="fas fa-file-alt me-2 text-primary"></i>Application Process</h6>
+                        <p>Students can apply for companies they are eligible for through the placement portal. All applications must be submitted before the specified deadline. Late applications will not be considered.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6 class="fw-bold"><i class="fas fa-comments me-2 text-primary"></i>Interview Process</h6>
+                        <p>Students must adhere to the dress code and be punctual for all interviews. Students are expected to carry their resume, ID card, and other required documents for the interview.</p>
+                    </div>
+                    
+                    <div>
+                        <h6 class="fw-bold"><i class="fas fa-handshake me-2 text-primary"></i>Offer Acceptance</h6>
+                        <p>Once a student accepts an offer, they will not be eligible for further placement opportunities. Students are given 24 hours to accept or reject an offer. No extensions will be provided.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">VIT Placement System</h5>
+                    <p class="mb-0">Connecting students with opportunities for a brighter future. The official placement portal for VIT Vellore students.</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html"><i class="fas fa-angle-right me-2"></i>Home</a></li>
+                        <li><a href="companies.html"><i class="fas fa-angle-right me-2"></i>Companies</a></li>
+                        <li><a href="#" id="footer-policy-link"><i class="fas fa-angle-right me-2"></i>Placement Policy</a></li>
+                        <li><a href="login.html"><i class="fas fa-angle-right me-2"></i>Login</a></li>
+                        <li><a href="register.html"><i class="fas fa-angle-right me-2"></i>Register</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i>VIT University, Vellore, Tamil Nadu - 632014</li>
+                        <li><i class="fas fa-phone me-2"></i>+91 123 456 7890</li>
+                        <li><i class="fas fa-envelope me-2"></i>placement@vit.ac.in</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p class="mb-0">© 2025 VIT Placement System. All rights reserved. Developed by Devin Thakur - 23BIT0031</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Load latest opportunities via AJAX
+            $.ajax({
+                url: '/api/opportunities/latest',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    let html = '';
+                    if (!data || data.length === 0) {
+                        html = `
+                            <div class="empty-state">
+                                <img src="images/empty-state.svg" alt="No opportunities" class="img-fluid">
+                                <h4>No opportunities available</h4>
+                                <p>There are currently no job opportunities available. Please check back later.</p>
+                            </div>
+                        `;
+                    } else {
+                        html = '<div class="list-group">';
+                        data.forEach(function(opportunity) {
+                            html += `
+                                <a href="companies.html?id=${opportunity._id}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="mb-1">${opportunity.position}</h5>
+                                            <p class="mb-1">${opportunity.company}</p>
+                                            <span class="badge bg-secondary">${opportunity.eligibility}</span>
+                                        </div>
+                                        <span class="text-muted small">Posted: ${new Date(opportunity.postedDate).toLocaleDateString()}</span>
+                                    </div>
+                                </a>
+                            `;
+                        });
+                        html += '</div>';
+                    }
+                    $('#latest-opportunities').html(html);
+                },
+                error: function() {
+                    $('#latest-opportunities').html(`
+                        <div class="empty-state">
+                            <img src="images/error-state.svg" alt="Error loading data" class="img-fluid">
+                            <h4>Couldn't load opportunities</h4>
+                            <p>There was an error loading the latest opportunities. Please try again later.</p>
+                            <button class="btn btn-primary" onclick="location.reload()">
+                                <i class="fas fa-sync-alt me-2"></i>Retry
+                            </button>
+                        </div>
+                    `);
+                }
+            });
+
+            // Policy modal
+            $('#policy-link, #footer-policy-link').click(function(e) {
+                e.preventDefault();
+                $('#policyModal').modal('show');
+            });
+        });
+    </script>
+</body>
+</html>
+

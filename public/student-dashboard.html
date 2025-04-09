@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - VIT Placement System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="student-dashboard.html">
+                <i class="fas fa-graduation-cap me-2"></i>VIT Placement System
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="student-dashboard.html">
+                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="companies.html">
+                            <i class="fas fa-building me-1"></i> Companies
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">
+                            <i class="fas fa-user me-1"></i> My Profile
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> <span id="username">Student</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="#" id="changePasswordBtn"><i class="fas fa-key me-2"></i>Change Password</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <div class="row">
+            <!-- Profile Summary -->
+            <div class="col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-user me-2"></i>Profile Summary</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <img src="/placeholder.svg?height=100&width=100" alt="Profile Picture" class="rounded-circle img-thumbnail" style="width: 100px; height: 100px;">
+                        </div>
+                        <h5 id="studentName">Loading...</h5>
+                        <p class="text-muted" id="studentCourse">Loading...</p>
+                        <hr>
+                        <div class="d-grid">
+                            <a href="profile.html" class="btn btn-primary">
+                                <i class="fas fa-user-edit me-2"></i>View Full Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-link me-2"></i>Quick Links</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush">
+                            <a href="companies.html" class="list-group-item list-group-item-action">
+                                <i class="fas fa-building me-2"></i>Browse Companies
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#offCampusModal">
+                                <i class="fas fa-external-link-alt me-2"></i>Add Off-Campus Application
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#policyModal">
+                                <i class="fas fa-clipboard-list me-2"></i>Placement Policy
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- My Applications -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>My Applications</h5>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-light filter-btn" data-filter="all">All</button>
+                            <button type="button" class="btn btn-sm btn-light filter-btn" data-filter="pending">Pending</button>
+                            <button type="button" class="btn btn-sm btn-light filter-btn" data-filter="interview">Interview</button>
+                            <button type="button" class="btn btn-sm btn-light filter-btn" data-filter="accepted">Accepted</button>
+                            <button type="button" class="btn btn-sm btn-light filter-btn" data-filter="rejected">Rejected</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="applicationsLoading" class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading applications...</p>
+                        </div>
+                        
+                        <div id="noApplications" class="text-center py-5 d-none">
+                            <img src="images/empty-applications.svg" alt="No Applications" class="img-fluid mb-3" style="max-width: 200px;">
+                            <p class="text-muted mb-3">You haven't applied to any companies yet.</p>
+                            <a href="companies.html" class="btn btn-primary">
+                                <i class="fas fa-building me-2"></i>Browse Companies
+                            </a>
+                        </div>
+                        
+                        <div id="applicationsTable" class="table-responsive d-none">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Position</th>
+                                        <th>Applied Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="applicationsTableBody">
+                                    <!-- Applications will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Upcoming Interviews -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>Upcoming Interviews</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="interviewsLoading" class="text-center py-4">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                
+                                <div id="noInterviews" class="text-center py-4 d-none">
+                                    <p class="text-muted mb-0">No upcoming interviews scheduled.</p>
+                                </div>
+                                
+                                <div id="interviewsList" class="list-group list-group-flush d-none">
+                                    <!-- Interviews will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Off-Campus Applications -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-external-link-alt me-2"></i>Off-Campus Applications</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="offCampusLoading" class="text-center py-4">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                
+                                <div id="noOffCampus" class="text-center py-4 d-none">
+                                    <p class="text-muted mb-0">No off-campus applications added.</p>
+                                    <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#offCampusModal">
+                                        <i class="fas fa-plus me-2"></i>Add Application
+                                    </button>
+                                </div>
+                                
+                                <div id="offCampusList" class="list-group list-group-flush d-none">
+                                    <!-- Off-campus applications will be loaded here -->
+                                </div>
+                            </div>
+                            <div class="card-footer" id="offCampusFooter" style="display: none;">
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#offCampusModal">
+                                    <i class="fas fa-plus me-2"></i>Add New
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Off-Campus Application Modal -->
+    <div class="modal fade" id="offCampusModal" tabindex="-1" aria-labelledby="offCampusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="offCampusModalLabel">
+                        <i class="fas fa-external-link-alt me-2"></i>Add Off-Campus Application
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="offCampusForm" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="company" class="form-label">Company Name</label>
+                            <input type="text" class="form-control" id="company" name="company" required>
+                            <div class="invalid-feedback">Company name is required.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="position" class="form-label">Position</label>
+                            <input type="text" class="form-control" id="position" name="position" required>
+                            <div class="invalid-feedback">Position is required.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appliedDate" class="form-label">Applied Date</label>
+                            <input type="date" class="form-control" id="appliedDate" name="appliedDate" required>
+                            <div class="invalid-feedback">Applied date is required.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="pending">Pending</option>
+                                <option value="interview">Interview Scheduled</option>
+                                <option value="accepted">Accepted</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                            <div class="invalid-feedback">Status is required.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveOffCampusBtn">
+                        <span class="spinner-border spinner-border-sm d-none me-2" role="status" aria-hidden="true"></span>
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Details Modal -->
+    <div class="modal fade" id="applicationDetailsModal" tabindex="-1" aria-labelledby="applicationDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="applicationDetailsModalLabel">
+                        <i class="fas fa-clipboard-list me-2"></i>Application Details
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="applicationDetailsLoading" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="applicationDetails" class="d-none">
+                        <!-- Application details will be loaded here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Placement Policy Modal -->
+    <div class="modal fade" id="policyModal" tabindex="-1" aria-labelledby="policyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="policyModalLabel">
+                        <i class="fas fa-clipboard-list me-2"></i>Placement Policy
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <h6 class="fw-bold"><i class="fas fa-check-circle me-2 text-primary"></i>Eligibility Criteria</h6>
+                        <p>Students must maintain a minimum CGPA of 7.0 to be eligible for campus placements. Students with active backlogs are not eligible for the placement process.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6 class="fw-bold"><i class="fas fa-user-clock me-2 text-primary"></i>Attendance Requirements</h6>
+                        <p>Students must have at least 75% attendance in all placement-related activities. Absence from pre-placement talks or other mandatory sessions may result in disqualification from the placement process.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6 class="fw-bold"><i class="fas fa-file-alt me-2 text-primary"></i>Application Process</h6>
+                        <p>Students can apply for companies they are eligible for through the placement portal. All applications must be submitted before the specified deadline. Late applications will not be considered.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6 class="fw-bold"><i class="fas fa-comments me-2 text-primary"></i>Interview Process</h6>
+                        <p>Students must adhere to the dress code and be punctual for all interviews. Students are expected to carry their resume, ID card, and other required documents for the interview.</p>
+                    </div>
+                    
+                    <div>
+                        <h6 class="fw-bold"><i class="fas fa-handshake me-2 text-primary"></i>Offer Acceptance</h6>
+                        <p>Once a student accepts an offer, they will not be eligible for further placement opportunities. Students are given 24 hours to accept or reject an offer. No extensions will be provided.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="changePasswordAlert" class="alert alert-danger d-none"></div>
+                    <form id="changePasswordForm" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Current Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="currentPassword" required>
+                                <button class="btn btn-outline-secondary toggle-password" type="button">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">Current password is required.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="newPassword" required minlength="6">
+                                <button class="btn btn-outline-secondary toggle-password" type="button">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="form-text">Password must be at least 6 characters long.</div>
+                            <div class="invalid-feedback">New password must be at least 6 characters long.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="confirmNewPassword" required>
+                                <button class="btn btn-outline-secondary toggle-password" type="button">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback" id="passwordMatchError">Passwords do not match.</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="changePasswordSubmit">
+                        <span class="spinner-border spinner-border-sm d-none me-2" role="status" aria-hidden="true"></span>
+                        Update Password
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">VIT Placement System</h5>
+                    <p class="mb-0">Connecting students with opportunities for a brighter future. The official placement portal for VIT Vellore students.</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="student-dashboard.html"><i class="fas fa-angle-right me-2"></i>Dashboard</a></li>
+                        <li><a href="companies.html"><i class="fas fa-angle-right me-2"></i>Companies</a></li>
+                        <li><a href="profile.html"><i class="fas fa-angle-right me-2"></i>Profile</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i>VIT University, Vellore, Tamil Nadu - 632014</li>
+                        <li><i class="fas fa-phone me-2"></i>+91 123 456 7890</li>
+                        <li><i class="fas fa-envelope me-2"></i>placement@vit.ac.in</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p class="mb-0">© 2025 VIT Placement System. All rights reserved. Developed by Devin Thakur - 23BIT0031</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Check if user is logged in
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Set username
+            $('#username').text(localStorage.getItem('name') || 'Student');
+            
+            // Toggle password visibility
+            $('.toggle-password').click(function() {
+                const passwordField = $(this).siblings('input');
+                const icon = $(this).find('i');
+                
+                if (passwordField.attr('type') === 'password') {
+                    passwordField.attr('type', 'text');
+                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    passwordField.attr('type', 'password');
+                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
+            
+            // Load student profile
+            function loadStudentProfile() {
+                $.ajax({
+                    url: '/api/student/profile',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function(response) {
+                        const student = response.user;
+                        
+                        // Update profile summary
+                        $('#studentName').text(student.firstName + ' ' + student.lastName);
+                        $('#studentCourse').text(student.course + ' - ' + student.branch);
+                    },
+                    error: function(xhr) {
+                        console.error('Failed to load profile:', xhr.responseJSON);
+                    }
+                });
+            }
+            
+            // Load applications
+            function loadApplications() {
+                $.ajax({
+                    url: '/api/student/applications',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function(response) {
+                        const applications = response.applications;
+                        
+                        // Hide loading
+                        $('#applicationsLoading').addClass('d-none');
+                        
+                        if (!applications || applications.length === 0) {
+                            $('#noApplications').removeClass('d-none');
+                            return;
+                        }
+                        
+                        // Show applications table
+                        $('#applicationsTable').removeClass('d-none');
+                        
+                        // Populate applications table
+                        let html = '';
+                        applications.forEach(app => {
+                            const companyName = app.company ? app.company.name : 'Unknown';
+                            
+                            html += `
+                                <tr data-status="${app.status}">
+                                    <td>${companyName}</td>
+                                    <td>${app.position}</td>
+                                    <td>${new Date(app.appliedDate).toLocaleDateString()}</td>
+                                    <td>
+                                        <span class="badge ${getBadgeClass(app.status)}">${capitalizeFirstLetter(app.status)}</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary view-application-btn" data-id="${app._id}">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        
+                        $('#applicationsTableBody').html(html);
+                        
+                        // Set active filter
+                        $('.filter-btn[data-filter="all"]').addClass('active');
+                        
+                        // Load interviews
+                        loadInterviews(applications);
+                    },
+                    error: function(xhr) {
+                        console.error('Failed to load applications:', xhr.responseJSON);
+                        $('#applicationsLoading').addClass('d-none');
+                        $('#noApplications').removeClass('d-none');
+                    }
+                });
+            }
+            
+            // Load interviews
+            function loadInterviews(applications) {
+                // Hide loading
+                $('#interviewsLoading').addClass('d-none');
+                
+                // Filter applications with interview status
+                const interviews = applications.filter(app => app.status === 'interview');
+                
+                if (interviews.length === 0) {
+                    $('#noInterviews').removeClass('d-none');
+                    return;
+                }
+                
+                // Show interviews list
+                $('#interviewsList').removeClass('d-none');
+                
+                // Populate interviews list
+                let html = '';
+                interviews.forEach(interview => {
+                    const companyName = interview.company ? interview.company.name : 'Unknown';
+                    
+                    html += `
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">${companyName}</h6>
+                                <small>${interview.interviewDate ? new Date(interview.interviewDate).toLocaleDateString() : 'Date not set'}</small>
+                            </div>
+                            <p class="mb-1">${interview.position}</p>
+                            <small>
+                                <i class="fas fa-clock me-1"></i> ${interview.interviewTime || 'Time not set'} | 
+                                <i class="fas fa-map-marker-alt me-1"></i> ${interview.interviewLocation || 'Location not set'}
+                            </small>
+                        </div>
+                    `;
+                });
+                
+                $('#interviewsList').html(html);
+                
+                // Load off-campus applications
+                loadOffCampusApplications();
+            }
+            
+            // Load off-campus applications
+            function loadOffCampusApplications() {
+                // Hide loading
+                $('#offCampusLoading').addClass('d-none');
+                
+                // Mock data for off-campus applications
+                const offCampusApplications = [
+                    {
+                        _id: '1',
+                        company: 'Startup Innovations',
+                        position: 'Full Stack Developer',
+                        appliedDate: new Date('2025-03-20'),
+                        status: 'pending'
+                    },
+                    {
+                        _id: '2',
+                        company: 'Tech Giants',
+                        position: 'Software Engineer',
+                        appliedDate: new Date('2025-03-18'),
+                        status: 'interview'
+                    }
+                ];
+                
+                if (offCampusApplications.length === 0) {
+                    $('#noOffCampus').removeClass('d-none');
+                    return;
+                }
+                
+                // Show off-campus list and footer
+                $('#offCampusList').removeClass('d-none');
+                $('#offCampusFooter').show();
+                
+                // Populate off-campus list
+                let html = '';
+                offCampusApplications.forEach(app => {
+                    html += `
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">${app.company}</h6>
+                                <span class="badge ${getBadgeClass(app.status)}">${capitalizeFirstLetter(app.status)}</span>
+                            </div>
+                            <p class="mb-1">${app.position}</p>
+                            <small>Applied: ${app.appliedDate.toLocaleDateString()}</small>
+                        </div>
+                    `;
+                });
+                
+                $('#offCampusList').html(html);
+            }
+            
+            // Filter applications
+            $('.filter-btn').click(function() {
+                const filter = $(this).data('filter');
+                
+                // Update active state
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                // Filter applications
+                if (filter === 'all') {
+                    $('#applicationsTableBody tr').show();
+                } else {
+                    $('#applicationsTableBody tr').hide();
+                    $('#applicationsTableBody tr[data-status="' + filter + '"]').show();
+                }
+            });
+            
+            // View application details
+            $(document).on('click', '.view-application-btn', function() {
+                const applicationId = $(this).data('id');
+                
+                // Show loading
+                $('#applicationDetailsLoading').removeClass('d-none');
+                $('#applicationDetails').addClass('d-none');
+                
+                // Show modal
+                $('#applicationDetailsModal').modal('show');
+                
+                // Get application details
+                $.ajax({
+                    url: `/api/student/application/${applicationId}`,
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function(response) {
+                        const application = response.application;
+                        const companyName = application.company ? application.company.name : 'Unknown';
+                        
+                        // Prepare application details HTML
+                        let html = `
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-muted">Company</h6>
+                                    <p class="mb-3">${companyName}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-muted">Position</h6>
+                                    <p class="mb-3">${application.position}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-muted">Applied Date</h6>
+                                    <p class="mb-3">${new Date(application.appliedDate).toLocaleDateString()}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-muted">Status</h6>
+                                    <p class="mb-3">
+                                        <span class="badge ${getBadgeClass(application.status)}">${capitalizeFirstLetter(application.status)}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Add interview details if status is interview
+                        if (application.status === 'interview') {
+                            html += `
+                                <hr>
+                                <h5 class="mb-3">Interview Details</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h6 class="text-muted">Date</h6>
+                                        <p class="mb-3">${application.interviewDate ? new Date(application.interviewDate).toLocaleDateString() : 'Not set'}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="text-muted">Time</h6>
+                                        <p class="mb-3">${application.interviewTime || 'Not set'}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="text-muted">Location</h6>
+                                        <p class="mb-3">${application.interviewLocation || 'Not set'}</p>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        
+                        // Add notes if available
+                        if (application.notes) {
+                            html += `
+                                <hr>
+                                <h5 class="mb-3">Notes</h5>
+                                <p>${application.notes}</p>
+                            `;
+                        }
+                        
+                        // Hide loading and show details
+                        $('#applicationDetailsLoading').addClass('d-none');
+                        $('#applicationDetails').html(html).removeClass('d-none');
+                    },
+                    error: function(xhr) {
+                        console.error('Failed to load application details:', xhr.responseJSON);
+                        
+                        // Hide loading and show error
+                        $('#applicationDetailsLoading').addClass('d-none');
+                        $('#applicationDetails').html('<div class="alert alert-danger">Failed to load application details. Please try again.</div>').removeClass('d-none');
+                    }
+                });
+            });
+            
+            // Add off-campus application
+            $('#saveOffCampusBtn').click(function() {
+                // Validate form
+                const form = document.getElementById('offCampusForm');
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    return;
+                }
+                
+                // Show loading spinner
+                $('#saveOffCampusBtn').attr('disabled', true);
+                $('#saveOffCampusBtn .spinner-border').removeClass('d-none');
+                
+                // Prepare form data
+                const formData = {
+                    companyName: $('#company').val(),
+                    position: $('#position').val(),
+                    appliedDate: $('#appliedDate').val(),
+                    status: $('#status').val(),
+                    notes: $('#notes').val()
+                };
+                
+                // AJAX request
+                $.ajax({
+                    url: '/api/student/off-campus',
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function() {
+                        // Hide modal
+                        $('#offCampusModal').modal('hide');
+                        
+                        // Reset form
+                        $('#offCampusForm')[0].reset();
+                        form.classList.remove('was-validated');
+                        
+                        // Reload off-campus applications
+                        loadOffCampusApplications();
+                        
+                        // Show success message
+                        alert('Off-campus application added successfully!');
+                    },
+                    error: function(xhr) {
+                        const errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'Failed to add off-campus application. Please try again.';
+                        alert(errorMessage);
+                    },
+                    complete: function() {
+                        // Hide loading spinner
+                        $('#saveOffCampusBtn').attr('disabled', false);
+                        $('#saveOffCampusBtn .spinner-border').addClass('d-none');
+                    }
+                });
+            });
+            
+            // Change Password
+            $('#changePasswordBtn').click(function() {
+                // Reset form
+                $('#changePasswordForm')[0].reset();
+                $('#changePasswordAlert').addClass('d-none');
+                
+                // Show modal
+                $('#changePasswordModal').modal('show');
+            });
+            
+            // Change Password Submit
+            $('#changePasswordSubmit').click(function() {
+                // Validate form
+                const form = document.getElementById('changePasswordForm');
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    return;
+                }
+                
+                // Check if passwords match
+                const newPassword = $('#newPassword').val();
+                const confirmNewPassword = $('#confirmNewPassword').val();
+                
+                if (newPassword !== confirmNewPassword) {
+                    $('#confirmNewPassword').addClass('is-invalid');
+                    $('#passwordMatchError').show();
+                    return;
+                } else {
+                    $('#confirmNewPassword').removeClass('is-invalid');
+                    $('#passwordMatchError').hide();
+                }
+                
+                // Show loading spinner
+                $('#changePasswordSubmit').attr('disabled', true);
+                $('#changePasswordSubmit .spinner-border').removeClass('d-none');
+                $('#changePasswordAlert').addClass('d-none');
+                
+                // AJAX request
+                $.ajax({
+                    url: '/api/auth/change-password',
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        currentPassword: $('#currentPassword').val(),
+                        newPassword: newPassword
+                    }),
+                    success: function() {
+                        // Hide modal
+                        $('#changePasswordModal').modal('hide');
+                        
+                        // Show success message
+                        alert('Password changed successfully!');
+                    },
+                    error: function(xhr) {
+                        // Show error message
+                        const errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'Failed to change password. Please try again.';
+                        $('#changePasswordAlert').removeClass('d-none').text(errorMessage);
+                    },
+                    complete: function() {
+                        // Hide loading spinner
+                        $('#changePasswordSubmit').attr('disabled', false);
+                        $('#changePasswordSubmit .spinner-border').addClass('d-none');
+                    }
+                });
+            });
+            
+            // Logout
+            $('#logoutBtn').click(function() {
+                localStorage.removeItem('token');
+                localStorage.removeItem('name');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('role');
+                window.location.href = 'login.html';
+            });
+            
+            // Helper Functions
+            function getBadgeClass(status) {
+                switch (status) {
+                    case 'pending':
+                        return 'bg-warning';
+                    case 'interview':
+                        return 'bg-info';
+                    case 'accepted':
+                        return 'bg-success';
+                    case 'rejected':
+                        return 'bg-danger';
+                    default:
+                        return 'bg-secondary';
+                }
+            }
+            
+            function capitalizeFirstLetter(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
+            
+            // Load initial data
+            loadStudentProfile();
+            loadApplications();
+        });
+    </script>
+</body>
+</html>
+
