@@ -3,15 +3,6 @@
 
 **A full-stack platform streamlining the campus recruitment ecosystem—connecting students, admins, and recruiters.**
 
-[![Vercel App](https://img.shields.io/badge/Deploy-Live%20on%20Vercel-black?logo=vercel&style=for-the-badge)]([PASTE_YOUR_VERCEL_LINK_HERE])
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success?style=for-the-badge)
-
----
-
-## 🚀 Live Demo
-### [👉 Click here to view the Live Deployment]([PASTE_YOUR_VERCEL_LINK_HERE])
-
----
 
 ## 📋 Project Overview
 The **College Placement System** automates the interactions between placement cells and students. It replaces manual processes with a centralized dashboard featuring **Role-Based Access Control (RBAC)**, secure data management, and real-time application tracking.
